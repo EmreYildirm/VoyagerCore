@@ -1,0 +1,21 @@
+#stickyfooter {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  height: 8%;
+}
+
+#footerrightblock {
+  float: right;
+  width: 50%;
+  margin-bottom: 10px;
+  height: auto;
+}
+
+#footerleftblock {
+  float: left;
+  width: 50%;
+  margin-bottom: 10px;
+  height: auto;
+}

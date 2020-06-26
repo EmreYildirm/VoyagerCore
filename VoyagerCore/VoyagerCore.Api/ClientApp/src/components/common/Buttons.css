@@ -1,0 +1,17 @@
+#singupbuttons {
+    float: right;
+    text-align: center;
+    margin-right: 50px;
+}
+
+#loginbuttons {
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+#getexpeditionbuttons {
+    float: right;
+    text-align: center;
+    margin-right: 50px;
+}

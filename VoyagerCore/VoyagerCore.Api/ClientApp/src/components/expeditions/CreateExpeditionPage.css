@@ -1,0 +1,23 @@
+#createexpeditionpageleftblock {
+  float: left;
+  width: 55%;
+}
+
+#createexpeditionrigthblock {
+  margin-top: 1%;
+  float: right;
+  width: 30%;
+}
+
+#selectarrivaltime {
+  margin-top: 10%;
+}
+
+#selectdeparturetime {
+  margin-top: 10%;
+}
+
+#savebutton {
+  margin-top: 30%;
+  margin-right: 8%;
+}

@@ -1,0 +1,28 @@
+#homebodyleftblock {
+  float: left;
+  width: 50%;
+
+}
+
+#homebodyrightblock {
+  float: right;
+  width: 50%;
+}
+
+.getexpeditionbutton {
+  margin-right: 30%;
+  margin-top: 27%;
+}
+
+.expeditioncalendar {
+  margin-left: 20%;
+  margin-top: 15%;
+}
+
+.mainbody {
+  height: 100%;
+}
+
+.homeslider {
+  margin-top: 10%;
+}
