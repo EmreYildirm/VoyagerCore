@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -39,7 +40,11 @@ namespace VoyagerCore.DAL.Repositories
 
         public virtual void Update(T Entity)
         {
-            _context.Entry<T>(Entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            var updatedEntity = _context.Entry(Entity);
+            updatedEntity.State = EntityState.Modified;
+            //_context.Attach(Entity);
+            //_context.Entry(Entity).State = EntityState.Modified;
+            /*_context.Entry<T>(Entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;*/
             //_context.SaveChanges();
         }
         private PropertyInfo GetIdPropInfo()

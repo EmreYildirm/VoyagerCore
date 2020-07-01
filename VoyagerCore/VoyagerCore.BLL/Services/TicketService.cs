@@ -19,31 +19,38 @@ namespace VoyagerCore.BLL.Services
         private IExpeditionService expeditionService;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private ISoldTicketRepository soldTicketRepository;
 
         public TicketService(ITicketRepository ticketRepository, IUnitOfWork unitOfWork, IExpeditionService expeditionService,
-            IPassengerService passengerService)
+            IPassengerService passengerService, IMapper mapper, ISoldTicketRepository soldTicketRepository)
         {
             _ticketRepository = ticketRepository;
             _unitOfWork = unitOfWork;
             this.expeditionService = expeditionService;
             this.passengerService = passengerService;
+            _mapper = mapper;
+            this.soldTicketRepository = soldTicketRepository;
         }
 
 
 
-        public void SellTicket(int expeditionId, int ticketId)
+        public void SellTicket(int expeditionId, int seatNumber)
         {
             var expeditionStore = expeditionService.GetAll();
             var expedition = expeditionStore.FirstOrDefault(e => e.Id == expeditionId);
-            var ticket = expedition.Tickets.FirstOrDefault(t => t.Id == ticketId);
+            var ticket = expedition.Tickets.FirstOrDefault(t => t.SeatNumber == seatNumber);
             var passenger = passengerService.GetAll().LastOrDefault();
 
             if (ticket.isSold == false)
             {
                 ticket.isSold = true;
-                ticket.Passenger = passenger;
-                Ticket soldTicket = _mapper.Map<Ticket>(ticket);
-                _ticketRepository.Add(soldTicket);
+                ticket.PassengerId=passenger.Id;
+                ticket.PassengerIdentityNumber = passenger.IdentityNumber;
+                ticket.PassengerName = passenger.FirstName;
+                ticket.PassengerLastName = passenger.LastName;
+                ticket.ExpeditionId = expeditionId;
+                SoldTicket updatedTicket = _mapper.Map<SoldTicket>(ticket);
+                AddSoldTicket(ticket);
                 Save();
             }
         }
@@ -51,16 +58,34 @@ namespace VoyagerCore.BLL.Services
         {
             var expeditionStore = expeditionService.GetAll();
             var expedition = expeditionStore.FirstOrDefault(e => e.Id == expeditionId);
-            var allTickets = expedition.Tickets;
-            List<TicketDTO> ticketDTOs = new List<TicketDTO>();
-            foreach (var item in allTickets)
-            {
-                TicketDTO ticket = _mapper.Map<TicketDTO>(item);
-                ticketDTOs.Add(ticket);
-            }
-            return ticketDTOs;
+            return expedition.Tickets;
         }
-
+        private void AddSoldTicket(TicketDTO ticket)
+        {
+            int maxId;
+            var soldTicketRepo = soldTicketRepository.GetAll();
+            if (soldTicketRepo.Count == 0)
+                maxId = 0;
+            else
+                maxId =  soldTicketRepo.Max(s => s.Id);
+            try
+            {
+                ticket.Id = maxId + 1;
+                SoldTicket soldTicket = _mapper.Map<SoldTicket>(ticket);
+                soldTicketRepository.Add(soldTicket);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public TicketDTO GetById(int expId, int seatNumber)
+        {
+            var expeditionStore = expeditionService.GetAll();
+            var expedition = expeditionStore.FirstOrDefault(e => e.Id == expId);
+            var ticket = expedition.Tickets.FirstOrDefault(t => t.SeatNumber == seatNumber);
+            return ticket;
+        }
         public void Save()
         {
             _unitOfWork.Save();
@@ -186,6 +211,5 @@ namespace VoyagerCore.BLL.Services
         //    }
         //    return true;
         //}
-
     }
 }

@@ -9,7 +9,7 @@ namespace VoyagerCore.DAL.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
 
-        private bool disposed = false;
+        //private bool disposed = false;
         private VoyagerContext _dbContext;
         public UnitOfWork(VoyagerContext dbContext)
         {

@@ -11,6 +11,7 @@ namespace VoyagerCore.DAL.Entities
     public class Bus
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [MaxLength(64)]

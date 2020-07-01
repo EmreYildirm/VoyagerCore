@@ -28,10 +28,15 @@ namespace VoyagerCore.DAL
         public DbSet<Bus> Buses { get; set; }
         public DbSet<Expedition> Expeditions { get; set; }
         public DbSet<Host> Hosts { get; set; }
+        public DbSet<SoldTicket> SoldTickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Ticket>(entity =>
+            {
+                // Set key for entity
+                entity.HasKey(t => t.Id);
+            });
             base.OnModelCreating(modelBuilder);
            // modelBuilder.Entity<Ticket>()
            //.HasOptional<Expedition>(s => s.Expedition)

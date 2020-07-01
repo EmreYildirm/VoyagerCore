@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using VoyagerCore.Api.Models;
+using VoyagerCore.BLL.DTO;
 using VoyagerCore.BLL.IServices;
 
 namespace VoyagerCore.Api.Controllers
@@ -9,9 +12,11 @@ namespace VoyagerCore.Api.Controllers
     public class TicketController : Controller
     {
         private ITicketService ticketService;
-        public TicketController(ITicketService ticketService)
+        private IPassengerService passengerService;
+        public TicketController(ITicketService ticketService,  IPassengerService passengerService )
         {
             this.ticketService = ticketService;
+            this.passengerService = passengerService;
         }
 
         [HttpGet("{expeditionId}/tickets")]
@@ -28,29 +33,52 @@ namespace VoyagerCore.Api.Controllers
             }
         }
 
-        //[HttpGet("{expeditionId}/tickets/{ticketId}")]
-        //public IActionResult GetTicketById(int expeditionId, int ticketId)
-        //{
-        //    try 
-        //    {
-        //        var expeditionStore = ExpeditionMockData.Current.Expeditions;
-        //        var expedition = expeditionStore.FirstOrDefault(e => e.Id == expeditionId);
-        //        var ticket = expedition.Tickets.FirstOrDefault(t => t.Id == ticketId);
-        //        return Ok(ticket);
-        //    } 
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-
-
-        [HttpPut("{expeditionId}/tickets/sellTicket/{ticketId}")]
-        public IActionResult TicketSale(int expeditionId, int ticketId)
+        [HttpGet("{expeditionId}/tickets/{seatNumber}")]
+        public IActionResult GetTicketById(int expeditionId, int seatNumber)
         {
             try
             {
-                ticketService.SellTicket(expeditionId, ticketId);
+                var ticket = ticketService.GetById(expeditionId, seatNumber);
+                return Ok(ticket);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPut("{expeditionId}/tickets/sellTicket/{seatNumber}")]
+        public IActionResult TicketSale(int expeditionId, int seatNumber, PassengerCreationDTO passenger)
+        {
+            try
+            {
+                try
+                {
+                    var date = Convert.ToDateTime(passenger.Date).Date;
+                    var passengerStore = passengerService.GetAll();
+                    int maxId;
+                    if (passengerStore.Count == 0)
+                        maxId = 0;
+                    else
+                        maxId = passengerStore.Max(p => p.Id);
+                    var newPassenger = new PassengerDTO()
+                    {
+                        Id = maxId + 1,
+                        FirstName = passenger.FirstName,
+                        LastName = passenger.LastName,
+                        //Age =Int32.Parse(passenger.Age),
+                        Gender = passenger.Gender,
+                        DateOfBirth = date,
+                        IdentityNumber = passenger.IdentityNumber
+                    };
+                    passengerService.Add(newPassenger);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                ticketService.SellTicket(expeditionId, seatNumber);
                 return Ok();
             }
             catch (Exception ex)

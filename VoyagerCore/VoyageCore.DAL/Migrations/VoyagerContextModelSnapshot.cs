@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VoyagerCore.DAL;
 
-namespace VoyageCore.DAL.Migrations
+namespace VoyagerCore.DAL.Migrations
 {
     [DbContext(typeof(VoyagerContext))]
     partial class VoyagerContextModelSnapshot : ModelSnapshot
@@ -22,9 +22,7 @@ namespace VoyageCore.DAL.Migrations
             modelBuilder.Entity("VoyagerCore.DAL.Entities.Bus", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Make")
                         .IsRequired()
@@ -36,7 +34,7 @@ namespace VoyageCore.DAL.Migrations
                         .HasColumnType("nvarchar(16)")
                         .HasMaxLength(16);
 
-                    b.Property<int>("SeatCapacity")
+                    b.Property<int>("SeatCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -47,9 +45,7 @@ namespace VoyageCore.DAL.Migrations
             modelBuilder.Entity("VoyagerCore.DAL.Entities.Driver", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -75,9 +71,6 @@ namespace VoyageCore.DAL.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<int>("LicenseType")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Drivers");
@@ -86,11 +79,9 @@ namespace VoyageCore.DAL.Migrations
             modelBuilder.Entity("VoyagerCore.DAL.Entities.Expedition", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("ArrivalTime")
+                    b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("BusId")
@@ -99,14 +90,11 @@ namespace VoyageCore.DAL.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DepartureTime")
+                    b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DriverId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("EstimatedDepartureTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("HostId")
                         .HasColumnType("int");
@@ -130,9 +118,7 @@ namespace VoyageCore.DAL.Migrations
             modelBuilder.Entity("VoyagerCore.DAL.Entities.Host", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -166,9 +152,7 @@ namespace VoyageCore.DAL.Migrations
             modelBuilder.Entity("VoyagerCore.DAL.Entities.Passenger", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -202,9 +186,7 @@ namespace VoyageCore.DAL.Migrations
             modelBuilder.Entity("VoyagerCore.DAL.Entities.Route", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("ArrivalLocation")
                         .HasColumnType("nvarchar(max)");
@@ -232,23 +214,18 @@ namespace VoyageCore.DAL.Migrations
                     b.ToTable("Routes");
                 });
 
-            modelBuilder.Entity("VoyagerCore.DAL.Entities.Ticket", b =>
+            modelBuilder.Entity("VoyagerCore.DAL.Entities.SoldTicket", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<string>("ExpeditionCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ExpeditionId")
+                    b.Property<int?>("ExpeditionId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PaidAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("PassengerId")
+                    b.Property<int?>("PassengerId")
                         .HasColumnType("int");
 
                     b.Property<string>("PassengerIdentityNumber")
@@ -273,6 +250,51 @@ namespace VoyageCore.DAL.Migrations
                     b.HasIndex("PassengerId");
 
                     b.ToTable("SoldTickets");
+                });
+
+            modelBuilder.Entity("VoyagerCore.DAL.Entities.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ExpeditionId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("PassengerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PassengerIdentityNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassengerLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassengerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int>("SeatNumber")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isSold")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpeditionId");
+
+                    b.HasIndex("PassengerId");
+
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("VoyagerCore.DAL.Entities.Expedition", b =>
@@ -302,19 +324,26 @@ namespace VoyageCore.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VoyagerCore.DAL.Entities.Ticket", b =>
+            modelBuilder.Entity("VoyagerCore.DAL.Entities.SoldTicket", b =>
                 {
                     b.HasOne("VoyagerCore.DAL.Entities.Expedition", "Expedition")
-                        .WithMany("Tickets")
-                        .HasForeignKey("ExpeditionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("SoldTickets")
+                        .HasForeignKey("ExpeditionId");
 
                     b.HasOne("VoyagerCore.DAL.Entities.Passenger", "Passenger")
                         .WithMany()
-                        .HasForeignKey("PassengerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PassengerId");
+                });
+
+            modelBuilder.Entity("VoyagerCore.DAL.Entities.Ticket", b =>
+                {
+                    b.HasOne("VoyagerCore.DAL.Entities.Expedition", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("ExpeditionId");
+
+                    b.HasOne("VoyagerCore.DAL.Entities.Passenger", "Passenger")
+                        .WithMany()
+                        .HasForeignKey("PassengerId");
                 });
 #pragma warning restore 612, 618
         }

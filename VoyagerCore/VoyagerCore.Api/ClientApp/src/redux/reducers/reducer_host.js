@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     serializerSettings: null,
     newHost: {
         id: null,
-        name: null,
+        firstName: null,
         lastName: null,
         identityNumber: null,
         gender: null,

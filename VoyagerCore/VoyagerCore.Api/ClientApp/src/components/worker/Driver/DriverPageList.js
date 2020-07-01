@@ -21,7 +21,7 @@ const DriverPageList = ({ drivers, onDeleteClick }) => (
                 return (
                     <tr key={driver.id}>
                         <td>{driver.id}</td>
-                        <td>{driver.name}</td>
+                        <td>{driver.firstName}</td>
                         <td>{driver.lastName}</td>
                         <td>{driver.age}</td>
                         <td>{driver.gender}</td>

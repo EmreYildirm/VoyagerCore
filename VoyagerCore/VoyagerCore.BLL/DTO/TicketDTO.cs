@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VoyagerCore.BLL.DTO
+﻿namespace VoyagerCore.BLL.DTO
 {
     public class TicketDTO
     {
@@ -34,6 +30,7 @@ namespace VoyagerCore.BLL.DTO
         public PassengerDTO Passenger { get; set; }
         public string PassengerName { get; set; }
         public string PassengerLastName { get; set; }
-        public string IdentityNumber { get; set; }
+        public string PassengerIdentityNumber { get; set; }
+        public int? ExpeditionId { get; set; }
     }
 }

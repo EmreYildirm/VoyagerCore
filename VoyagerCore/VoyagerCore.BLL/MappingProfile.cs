@@ -29,6 +29,11 @@ namespace VoyagerCore.BLL
             //Ticket
             CreateMap<TicketDTO, Ticket>();
             CreateMap<Ticket, TicketDTO>();
+            //SoldTicket
+            CreateMap<Ticket, SoldTicket>();
+            CreateMap<SoldTicket, Ticket>();
+            CreateMap<SoldTicket, TicketDTO>();
+            CreateMap<TicketDTO, SoldTicket>();
         }
     }
 }

@@ -45,8 +45,9 @@ namespace VoyagerCore.Api.Controllers
         {
             try
             {
+
                 var departureDate = Convert.ToDateTime(expedition.DepartureDate);
-                var expeditionStore = expeditionService.GetAllWithDateTime(departureDate.ToString());
+                var expeditionStore = expeditionService.GetAll();
                 int maxId;
                 if (expeditionStore.Count == 0)
                     maxId = 0;
@@ -63,10 +64,14 @@ namespace VoyagerCore.Api.Controllers
                 var Host = hostStore.FirstOrDefault(b => b.Id == Int32.Parse(expedition.HostId));
                 var Route = routeStore.FirstOrDefault(b => b.Id == Int32.Parse(expedition.RouteId));
 
-                var newExpedition = new ExpeditionDTO(Bus, Route, Host, Driver, departureDate)
+
+
+                var newExpedition = new ExpeditionDTO(Bus, Route, Host, Driver)
                 {
                     Id = maxId + 1,
-                    DepartureDate = departureDate
+                    DepartureDate = departureDate,
+                    Code = expeditionService.GenerateExpeditionCode(Route.Name, Bus.Plate),
+                    ArrivalTime = expeditionService.GenerateExpeditionArrivalTime(departureDate, Route.Duration),
                 };
                 expeditionService.Add(newExpedition);
                 return Ok();

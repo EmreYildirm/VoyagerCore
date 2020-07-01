@@ -8,7 +8,7 @@ namespace VoyagerCore.BLL.IServices
     public interface IPassengerService
     {
         PassengerDTO GetById(int Id);
-        IList<PassengerDTO> GetAll();
+        List<PassengerDTO> GetAll();
         void Add(PassengerDTO item);
         void Update(PassengerDTO item);
         void Remove(PassengerDTO item);

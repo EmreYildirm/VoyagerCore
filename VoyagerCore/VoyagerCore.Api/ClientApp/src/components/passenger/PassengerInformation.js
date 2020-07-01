@@ -10,10 +10,10 @@ function PassengerInfo({ passenger, onChange }) {
         <div class="form-group col-md-6">
           <label for="input">İsim</label>
           <input
-            name="name"
+            name="firstName"
             type="text"
             onChange={onChange}
-            value={passenger.name}
+            value={passenger.firstName}
             className="form-control"
             placeholder="Tugay"
           />
@@ -28,25 +28,25 @@ function PassengerInfo({ passenger, onChange }) {
             className="form-control"
             placeholder="Doğan"
           />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="input">Yaş</label>
-        <input
-          name="age"
-          type="text"
-          onChange={onChange}
-          value={passenger.age}
-          className="form-control"
-          placeholder="27"
-        />
+              </div>
+              <div class="form-group col-md-6">
+                  <label for="input">Kimlik No</label>
+                  <input
+                      name="identityNumber"
+                      type="text"
+                      onChange={onChange}
+                      value={passenger.identityNumber}
+                      className="form-control"
+                      placeholder="Doğan"
+                  />
+              </div>
       </div>
       <div className="col">
         <label>DateTime</label>
         <input
           id="start"
           name="date"
-          type="datetime-local"
+          type="date"
           onChange={onChange}
           value={passenger.date}
           className="form-control"

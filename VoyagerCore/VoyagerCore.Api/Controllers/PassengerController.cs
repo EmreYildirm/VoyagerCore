@@ -34,34 +34,35 @@ namespace VoyagerCore.Api.Controllers
             }
         }
 
-        [HttpPost("api/passengers")]
-        public IActionResult SavePassenger(PassengerCreationDTO passenger)
-        {
-            try
-            {
-                var date = Convert.ToDateTime(passenger.Date).Date;
-                var passengerStore = passengerService.GetAll();
-                int maxId;
-                if (passengerStore.Count == 0)
-                    maxId = 0;
-                else
-                    maxId = passengerStore.Max(p => p.Id);
-                var newPassenger = new PassengerDTO()
-                {
-                    Id = maxId + 1,
-                    FirstName = passenger.FirstName,
-                    LastName = passenger.LastName,
-                    //Age =Int32.Parse(passenger.Age),
-                    Gender = passenger.Gender,
-                    DateOfBirth = date
-                };
-                passengerService.Add(newPassenger);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpPost("api/passengers")]
+        //public IActionResult SavePassenger(PassengerCreationDTO passenger)
+        //{
+        //    try
+        //    {
+        //        var date = Convert.ToDateTime(passenger.Date).Date;
+        //        var passengerStore = passengerService.GetAll();
+        //        int maxId;
+        //        if (passengerStore.Count == 0)
+        //            maxId = 0;
+        //        else
+        //            maxId = passengerStore.Max(p => p.Id);
+        //        var newPassenger = new PassengerDTO()
+        //        {
+        //            Id = maxId + 1,
+        //            FirstName = passenger.FirstName,
+        //            LastName = passenger.LastName,
+        //            //Age =Int32.Parse(passenger.Age),
+        //            Gender = passenger.Gender,
+        //            DateOfBirth = date,
+        //            IdentityNumber = passenger.IdentityNumber
+        //        };
+        //        passengerService.Add(newPassenger);
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
     }
 }

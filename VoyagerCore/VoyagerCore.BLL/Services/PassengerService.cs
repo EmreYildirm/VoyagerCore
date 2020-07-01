@@ -38,7 +38,7 @@ namespace VoyagerCore.BLL.Services
             Save();
         }
 
-        public IList<PassengerDTO> GetAll()
+        public List<PassengerDTO> GetAll()
         {
             var allPassenger = _passengerRepository.GetAll();
             List<PassengerDTO> passengerDTOs = new List<PassengerDTO>();

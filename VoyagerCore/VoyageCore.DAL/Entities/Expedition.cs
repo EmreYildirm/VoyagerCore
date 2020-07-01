@@ -10,33 +10,35 @@ namespace VoyagerCore.DAL.Entities
     [Table("Expeditions")]
     public class Expedition
     {
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Code { get; set; }
         public DateTime ArrivalTime { get; set; }
         public DateTime DepartureTime { get; set; }
 
-
-        public Bus Bus { get; set; }
-        
         [ForeignKey("Bus")]
         public int BusId { get; set; }
+        public virtual Bus Bus { get; set; }
 
 
         [ForeignKey("Route")]
         public int RouteId { get; set; }
-        public Route Route { get; set; }
+        public virtual Route Route { get; set; }
+
 
         [ForeignKey("Driver")]
         [Required]
         public int DriverId { get; set; }
-        public Driver Driver { get; set; }
+        public virtual Driver Driver { get; set; }
+
 
         [ForeignKey("Host")]
         [Required]
         public int HostId { get; set; }
-        public Host Host { get; set; }
-        public ICollection<Ticket> Tickets { get; set; }
+        public virtual Host Host { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual ICollection<SoldTicket> SoldTickets { get; set; }
 
         //public string BusPlate { get; set; }
         //public string RouteName { get; set; }

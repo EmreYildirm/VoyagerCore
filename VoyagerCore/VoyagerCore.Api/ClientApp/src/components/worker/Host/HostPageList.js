@@ -20,7 +20,7 @@ const HostPageList = ({ hosts, onDeleteClick }) => (
                 return (
                     <tr key={host.id}>
                         <td>{host.id}</td>
-                        <td>{host.name}</td>
+                        <td>{host.firstName}</td>
                         <td>{host.lastName}</td>
                         <td>{host.age}</td>
                         <td>{host.gender}</td>

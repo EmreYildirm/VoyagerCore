@@ -7,33 +7,18 @@ namespace VoyagerCore.BLL.DTO
 {
     public class ExpeditionDTO
     {
-        private string _code;
         public int Id { get; set; }
-        public string Code
-        {
-            get
-            {
-                string result = _code + " - " + Route.Name + " - " + Bus.Plate;
-                return result;
-            }
-        }
+        public string Code{ get; set; }
         public DateTime DepartureDate { get; set; }
-        public DateTime ArrivalTime
-        {
-            get
-            {
-                return DepartureDate.AddMinutes(Route.Duration);
-            }
-        }
+        public DateTime ArrivalTime { get; set; }
         public DriverDTO Driver { get; }
         public HostDTO Host { get; }
         public RouteDTO Route { get; }
         public BusDTO Bus { get; }
         public List<TicketDTO> Tickets { get; }
 
-        public ExpeditionDTO(BusDTO bus, RouteDTO route, HostDTO host, DriverDTO driver, DateTime departureTime)
+        public ExpeditionDTO(BusDTO bus, RouteDTO route, HostDTO host, DriverDTO driver)
         {
-            DepartureDate = departureTime;
             Driver = driver;
             Bus = bus;
             Route = route;
@@ -43,20 +28,17 @@ namespace VoyagerCore.BLL.DTO
             {
                 TicketDTO ticket = new TicketDTO()
                 {
-                    Id = i,
                     SeatNumber = i,
                     isSold = false,
                     Passenger = null,
                     PassengerId = null,
-                    IdentityNumber = null,
+                    PassengerIdentityNumber = null,
                     PassengerLastName = null,
-                    PassengerName = null
+                    PassengerName = null,
+                    ExpeditionId = Id
                 };
                 Tickets.Add(ticket);
             }
-            Random rnd = new Random();
-            var code = Convert.ToString(rnd.Next(10000, 99999));
-            _code = code;
         }
     }
 }

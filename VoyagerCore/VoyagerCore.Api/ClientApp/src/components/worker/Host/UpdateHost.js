@@ -41,7 +41,7 @@ function UpdateHost({ history, ...props }) {
       <form onSubmit={handleSave} id="createhostformmargin">
         <div className="row">
           <TextInput
-            name="name"
+            name="firstName"
             type="text"
             label="Name"
             onChange={handleChange}

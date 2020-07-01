@@ -47,6 +47,7 @@ namespace VoyagerCore.Api
             services.AddScoped<IPassengerRepository, PassengerRepository>();
             services.AddScoped<IRouteRepository, RouteRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<ISoldTicketRepository, SoldTicketRepository>();
 
             services.AddScoped<VoyagerContext, VoyagerContext>();
             #region DbContext

@@ -20,7 +20,7 @@ function AddHost({ history, ...props }) {
     const { name, value } = event.target;
     setHost((prevHost) => ({
       ...prevHost,
-      [name]: name === "name" ? value : value,
+      [name]: name === "firstName" ? value : value,
       [name]: name === "lastName" ? value : value,
       [name]: name === "identityNumber" ? value : value,
       [name]: name === "date" ? value.toString() : value,
@@ -48,7 +48,7 @@ function AddHost({ history, ...props }) {
       <form onSubmit={handleSave} id="createhostformmargin">
         <div className="row">
           <TextInput
-            name="name"
+            name="firstName"
             type="text"
             label="Name"
             onChange={handleChange}

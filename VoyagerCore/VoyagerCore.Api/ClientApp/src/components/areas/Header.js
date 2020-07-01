@@ -9,7 +9,7 @@ function Header() {
         <div className="row flex-nowrap justify-content-between align-items-center">
           <div className="col-4 pt-1"></div>
           <div className="col-4 text-center">
-            <p className="blog-header-logo text-dark">Large</p>
+            <p className="blog-header-logo text-dark">Voyager Core App</p>
           </div>
           <div className="col-4 d-flex justify-content-end align-items-center">
             <LoginButtons />

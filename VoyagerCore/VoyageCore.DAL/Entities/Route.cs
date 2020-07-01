@@ -25,6 +25,7 @@ namespace VoyagerCore.DAL.Entities
         public const decimal priceDropDistance = 300;
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Name { get; set; }
         public string DepartureLocation { get; set; }

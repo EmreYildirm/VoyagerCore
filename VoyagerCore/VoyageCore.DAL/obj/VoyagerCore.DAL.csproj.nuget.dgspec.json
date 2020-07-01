@@ -67,6 +67,10 @@
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
               "version": "[5.0.0-preview.5.20278.1, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
             }
           },
           "imports": [

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VoyagerCore.BLL.DTO;
 using VoyagerCore.BLL.IServices;
 using VoyagerCore.DAL.Entities;
@@ -13,21 +14,29 @@ namespace VoyagerCore.BLL.Services
     {
         private readonly IMapper _mapper;
         private readonly IExpeditionRepository _expeditionRepository;
+        private readonly IHostService hostService;
+        private readonly IDriverService driverService;
+        private readonly IRouteService routeService;
+        private readonly IBusService busService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ExpeditionService(IExpeditionRepository expeditionRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ExpeditionService(IExpeditionRepository expeditionRepository, IUnitOfWork unitOfWork, IMapper mapper, IBusService busService, IRouteService routeService, IDriverService driverService, IHostService hostService)
         {
             _expeditionRepository = expeditionRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-        }
+            this.hostService = hostService;
+            this.driverService = driverService;
+            this.routeService = routeService;
+            this.busService = busService;
+    }
         //TO-DO
         //public event CodeGeneratorHandler CodeGenerated;
         public List<ExpeditionDTO> GetAllWithDateTime(string dateTime)
         {
             var date = Convert.ToDateTime(dateTime).Date;
             var allExpedition = GetAll();
-            var getExps = allExpedition.FindAll(e => e.DepartureDate == date);
+            var getExps = allExpedition.FindAll(e => e.DepartureDate.Date == date);
             return getExps;
         }
         public List<ExpeditionDTO> GetAll()
@@ -37,41 +46,55 @@ namespace VoyagerCore.BLL.Services
             foreach (var item in allExpedition)
             {
                 var departureTime = item.DepartureTime;
-                HostDTO Host = _mapper.Map<HostDTO>(item.Host);
-                DriverDTO Driver = _mapper.Map<DriverDTO>(item.Driver);
-                RouteDTO Route = _mapper.Map<RouteDTO>(item.Route);
-                BusDTO Bus = _mapper.Map<BusDTO>(item.Bus);
-                expeditionDTOs.Add(new ExpeditionDTO(Bus, Route, Host, Driver, departureTime)
+                HostDTO Host = hostService.GetAll().FirstOrDefault(h => h.Id == item.HostId);
+                RouteDTO Route = routeService.GetAllRoutes().FirstOrDefault(r => r.Id == item.RouteId);
+                DriverDTO Driver = driverService.GetAll().FirstOrDefault(d => d.Id == item.DriverId);
+                BusDTO Bus = busService.GetAll().FirstOrDefault(b => b.Id == item.BusId);
+                //HostDTO Host = _mapper.Map<HostDTO>(item.Host);
+                //DriverDTO Driver = _mapper.Map<DriverDTO>(item.Driver);
+                //RouteDTO Route = _mapper.Map<RouteDTO>(item.Route);
+                //BusDTO Bus = _mapper.Map<BusDTO>(item.Bus);
+                expeditionDTOs.Add(new ExpeditionDTO(Bus , Route, Host, Driver)
                 {
-                    Id = item.Id
+                    Id = item.Id,
+                    ArrivalTime = item.ArrivalTime,
+                    DepartureDate = item.DepartureTime,
+                    Code = item.Code,
                 });
             }
             return expeditionDTOs;
+        }
+        public string GenerateExpeditionCode(string routeName, string busPlate)
+        {
+            Random rnd = new Random();
+            var code = Convert.ToString(rnd.Next(10000, 99999));
+            string result = code + " - " + routeName + " - " + busPlate;
+            return result;
         }
         public void Add(ExpeditionDTO item)
         {
             try
             {
-                Host Host = _mapper.Map<Host>(item.Host); ;
-                Driver Driver = _mapper.Map<Driver>(item.Driver);
-                Route Route = _mapper.Map<Route>(item.Route);
-                Bus Bus = _mapper.Map<Bus>(item.Bus);
+                //Host Host = _mapper.Map<Host>(item.Host); ;
+                //Driver Driver = _mapper.Map<Driver>(item.Driver);
+                //Route Route = _mapper.Map<Route>(item.Route);
+                //Bus Bus = _mapper.Map<Bus>(item.Bus);
                 List<Ticket> TicketList = _mapper.Map<List<Ticket>>(item.Tickets);
                 var expedition = new Expedition()
                 {
                     Id = item.Id,
-                    Host = Host,
-                    Driver = Driver,
-                    Tickets = TicketList,
-                    Bus = Bus,
-                    Route = Route,
+                    //Host = Host,
+                    //Driver = Driver,
+                    //Bus = Bus,
+                    //Route = Route,
                     BusId = item.Bus.Id,
                     RouteId = item.Route.Id,
                     DepartureTime = item.DepartureDate,
                     ArrivalTime = item.ArrivalTime,
                     Code = item.Code,
                     DriverId= item.Driver.Id,
-                    HostId = item.Host.Id
+                    HostId = item.Host.Id,
+                    Tickets = TicketList
                 };
                 _expeditionRepository.Add(expedition);
                 Save();
@@ -86,6 +109,11 @@ namespace VoyagerCore.BLL.Services
         public void Save()
         {
             _unitOfWork.Save();
+        }
+
+        public DateTime GenerateExpeditionArrivalTime(DateTime DepertureDate, int routeDuration)
+        {
+            return DepertureDate.AddMinutes(routeDuration);
         }
 
         //public void AddBus(BusDTO bus)
@@ -117,7 +145,7 @@ namespace VoyagerCore.BLL.Services
         //    return result;
         //}
 
-        
+
 
         //public ExpeditionDTO GetById(int Id)
         //{

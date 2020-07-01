@@ -20,7 +20,7 @@ function AddDriver({ history, ...props }) {
     const { name, value } = event.target;
     setDriver((prevDriver) => ({
       ...prevDriver,
-      [name]: name === "name" ? value : value,
+      [name]: name === "firstName" ? value : value,
       [name]: name === "lastName" ? value : value,
       [name]: name === "gender" ? value : value,
       [name]: name === "identityNumber" ? value : value,
@@ -47,8 +47,8 @@ function AddDriver({ history, ...props }) {
       >
         <div className="row">
           <TextInput
-            label="Name"
-            name="name"
+            label="FirstName"
+            name="firstName"
             type="text"
             onChange={handleChange}
             value={driver.name}

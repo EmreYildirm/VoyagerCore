@@ -5,6 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200626165053_[deneme2].cs" />
+    <Compile Remove="Migrations\20200626165053_[deneme2].Designer.cs" />
+    <Compile Remove="Migrations\20200626165243_[deneme2].cs" />
+    <Compile Remove="Migrations\20200626165243_[deneme2].Designer.cs" />
+    <Compile Remove="Migrations\20200626165451_deneme2.cs" />
+    <Compile Remove="Migrations\20200626165451_deneme2.Designer.cs" />
+    <Compile Remove="Migrations\20200626171109_myMigration.cs" />
+    <Compile Remove="Migrations\20200626171109_myMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200628115624_[new].cs" />
+    <Compile Remove="Migrations\20200628115624_[new].Designer.cs" />
+    <Compile Remove="Migrations\20200630130127_[newdeneme].cs" />
+    <Compile Remove="Migrations\20200630130127_[newdeneme].Designer.cs" />
+    <Compile Remove="Migrations\20200630182043_[new].cs" />
+    <Compile Remove="Migrations\20200630182043_[new].Designer.cs" />
+    <Compile Remove="Migrations\20200701115444_[new].cs" />
+    <Compile Remove="Migrations\20200701115444_[new].Designer.cs" />
+    <Compile Remove="Migrations\20200701122358_[new].cs" />
+    <Compile Remove="Migrations\20200701122358_[new].Designer.cs" />
+    <Compile Remove="Migrations\20200701165452_[new].cs" />
+    <Compile Remove="Migrations\20200701165452_[new].Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-preview.5.20278.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-preview.5.20278.2">

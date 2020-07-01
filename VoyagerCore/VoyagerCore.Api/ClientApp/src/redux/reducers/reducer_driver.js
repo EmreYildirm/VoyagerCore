@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   serializerSettings: null,
   newDriver: {
     id: null,
-    name: null,
+    firstName: null,
     lastName: null,
     gender: null,
     identityNumber: null,

@@ -4,9 +4,7 @@ C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\obj\Debug\netcoreapp3.1\Voyag
 C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\obj\Debug\netcoreapp3.1\VoyagerCore.BLL.AssemblyInfo.cs
 C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.BLL.deps.json
 C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.BLL.dll
-C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyageCore.DAL.dll
 C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.Enums.dll
-C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyageCore.DAL.pdb
 C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.Enums.pdb
 C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\obj\Debug\netcoreapp3.1\VoyagerCore.BLL.csproj.CopyComplete
 C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.BLL.pdb
@@ -40,3 +38,5 @@ D:\Projeler\mahmut\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCo
 D:\Projeler\mahmut\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.DAL.pdb
 C:\Users\emrey\Desktop\GitLab\mahmut\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.DAL.dll
 C:\Users\emrey\Desktop\GitLab\mahmut\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.DAL.pdb
+C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.DAL.dll
+C:\Users\emrey\Desktop\VoyagerCore\VoyagerCore.BLL\bin\Debug\netcoreapp3.1\VoyagerCore.DAL.pdb

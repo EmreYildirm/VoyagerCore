@@ -7,6 +7,7 @@ import * as ticketActions from "../../redux/actions/ticketActions";
 import '../bus/Bus.css'
 import * as passengerActions from '../../redux/actions/passengerActions';
 import PassengerInfo from '../passenger/PassengerInformation';
+import { Link } from "react-router-dom";
 
 
 function SellTicket({ capturedTicket, history, ...props }) {
@@ -27,7 +28,7 @@ function SellTicket({ capturedTicket, history, ...props }) {
         const { name, value } = event.target;
         setPassenger((prevPassenger) => ({
             ...prevPassenger,
-            [name]: name === "name" ? value : value,
+            [name]: name === "firstName" ? value : value,
             [name]: name === "lastName" ? value : value,
             [name]: name === "age" ? value : value,
         }));
@@ -36,13 +37,11 @@ function SellTicket({ capturedTicket, history, ...props }) {
 
     function handleSubmit() {
         debugger;
-        props.createPassenger(passenger).
-            then(() => {
-                props.sellTicket(expeditionId, capturedTicket.id).
-                    then(() => {
-                        history.push("/home")
-                    });
-            });
+        props.sellTicket(expeditionId, capturedTicket.seatNumber, passenger);
+                    //then(() => {
+                    //    history.push("/home")
+                    //});
+            
     }
 
     function onClickSelect(id) {
@@ -59,7 +58,7 @@ function SellTicket({ capturedTicket, history, ...props }) {
                     <tbody>
                         <tr>
                             {props.tickets.map(ticket =>
-                                <td key={ticket.id} onClick={(e) => onClickSelect(ticket.id)}  >{ticket.seatNumber}</td>
+                                <td key={ticket.seatNumber} onClick={(e) => onClickSelect(ticket.seatNumber)}  >{ticket.seatNumber}</td>
                             )}
                         </tr>
                     </tbody>
@@ -69,9 +68,11 @@ function SellTicket({ capturedTicket, history, ...props }) {
                 <div>
                     <PassengerInfo passenger={props.passenger} onChange={handleChange} />
                 </div>
+                <Link to="home">
                 <button type="submit" onClick={handleSubmit} className="btn btn-success btn-lg">
-                    İşlem
+                        İşlem
             </button>
+                    </Link>
             </form>
             <Footer />
         </div>

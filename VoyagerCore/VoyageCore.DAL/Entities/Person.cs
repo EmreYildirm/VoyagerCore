@@ -10,6 +10,7 @@ namespace VoyagerCore.DAL.Entities
     public abstract class Person
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         [MaxLength(11)]
         [Required]

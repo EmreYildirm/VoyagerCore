@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace VoyageCore.DAL.Migrations
+namespace VoyagerCore.DAL.Migrations
 {
-    public partial class deneme : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,11 +11,10 @@ namespace VoyageCore.DAL.Migrations
                 name: "Buses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Make = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Plate = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    SeatCapacity = table.Column<int>(type: "int", nullable: false)
+                    SeatCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,15 +25,13 @@ namespace VoyageCore.DAL.Migrations
                 name: "Drivers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     IdentityNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    LicenseType = table.Column<int>(type: "int", nullable: false)
+                    Gender = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,8 +42,7 @@ namespace VoyageCore.DAL.Migrations
                 name: "Hosts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     IdentityNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
@@ -63,8 +59,7 @@ namespace VoyageCore.DAL.Migrations
                 name: "Passengers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     IdentityNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
@@ -81,8 +76,7 @@ namespace VoyageCore.DAL.Migrations
                 name: "Routes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepartureLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArrivalLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -100,12 +94,10 @@ namespace VoyageCore.DAL.Migrations
                 name: "Expeditions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EstimatedDepartureTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BusId = table.Column<int>(type: "int", nullable: false),
                     RouteId = table.Column<int>(type: "int", nullable: false),
                     DriverId = table.Column<int>(type: "int", nullable: false),
@@ -144,17 +136,15 @@ namespace VoyageCore.DAL.Migrations
                 name: "SoldTickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     SeatNumber = table.Column<int>(type: "int", nullable: false),
                     PaidAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     isSold = table.Column<bool>(type: "bit", nullable: false),
-                    PassengerId = table.Column<int>(type: "int", nullable: false),
+                    PassengerId = table.Column<int>(type: "int", nullable: true),
                     PassengerIdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PassengerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PassengerLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExpeditionId = table.Column<int>(type: "int", nullable: false),
-                    ExpeditionCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ExpeditionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -164,13 +154,46 @@ namespace VoyageCore.DAL.Migrations
                         column: x => x.ExpeditionId,
                         principalTable: "Expeditions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SoldTickets_Passengers_PassengerId",
                         column: x => x.PassengerId,
                         principalTable: "Passengers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SeatNumber = table.Column<int>(type: "int", nullable: false),
+                    PaidAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    isSold = table.Column<bool>(type: "bit", nullable: false),
+                    PassengerId = table.Column<int>(type: "int", nullable: true),
+                    PassengerIdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassengerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassengerLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    ExpeditionId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Expeditions_ExpeditionId",
+                        column: x => x.ExpeditionId,
+                        principalTable: "Expeditions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Passengers_PassengerId",
+                        column: x => x.PassengerId,
+                        principalTable: "Passengers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -202,12 +225,25 @@ namespace VoyageCore.DAL.Migrations
                 name: "IX_SoldTickets_PassengerId",
                 table: "SoldTickets",
                 column: "PassengerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_ExpeditionId",
+                table: "Tickets",
+                column: "ExpeditionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_PassengerId",
+                table: "Tickets",
+                column: "PassengerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "SoldTickets");
+
+            migrationBuilder.DropTable(
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "Expeditions");

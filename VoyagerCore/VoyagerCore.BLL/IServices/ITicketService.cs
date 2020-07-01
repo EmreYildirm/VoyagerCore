@@ -10,6 +10,7 @@ namespace VoyagerCore.BLL.IServices
         void SellTicket(int expeditionId, int ticketId);
         //decimal GetPriceOfTicket(TicketDTO item, RouteDTO route);
         List<TicketDTO> GetAllTickets(int expeditionId);
+        TicketDTO GetById(int expeditionId, int ticketId);
         //bool IsFeeEnough(PassengerDTO person, RouteDTO route, TicketDTO item);
         //bool IsSeatEmpty(int seatNumber);
         //bool IsSeatAvailableForLuxuryBus(TicketDTO item);
