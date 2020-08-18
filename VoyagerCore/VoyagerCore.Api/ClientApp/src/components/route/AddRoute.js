@@ -27,7 +27,7 @@ function AddRoute({ history, ...props }) {
   function handleSave(event) {
     event.preventDefault();
     props.addRoute(route).then(() => {
-      history.push("/routes");
+      history.push("/home");
     });
   }
 

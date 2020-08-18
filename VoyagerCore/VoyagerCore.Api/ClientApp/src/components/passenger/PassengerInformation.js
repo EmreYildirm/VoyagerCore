@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import "../bus/Bus.css";
 
 function PassengerInfo({ passenger, onChange }) {
   return (
@@ -28,18 +27,18 @@ function PassengerInfo({ passenger, onChange }) {
             className="form-control"
             placeholder="Doğan"
           />
-              </div>
-              <div class="form-group col-md-6">
-                  <label for="input">Kimlik No</label>
-                  <input
-                      name="identityNumber"
-                      type="text"
-                      onChange={onChange}
-                      value={passenger.identityNumber}
-                      className="form-control"
-                      placeholder="Doğan"
-                  />
-              </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input">Kimlik No</label>
+          <input
+            name="identityNumber"
+            type="text"
+            onChange={onChange}
+            value={passenger.identityNumber}
+            className="form-control"
+            placeholder="Doğan"
+          />
+        </div>
       </div>
       <div className="col">
         <label>DateTime</label>
@@ -52,7 +51,7 @@ function PassengerInfo({ passenger, onChange }) {
           className="form-control"
         />
       </div>
-      <div className="radio">
+      <div className="radioWoman">
         <label id="mahmut">Cinsiyet</label>
         <input
           type="radio"
@@ -65,7 +64,7 @@ function PassengerInfo({ passenger, onChange }) {
           Kadın
         </label>
       </div>
-      <div class="radio">
+      <div className="radioMan">
         <input
           type="radio"
           name="gender"

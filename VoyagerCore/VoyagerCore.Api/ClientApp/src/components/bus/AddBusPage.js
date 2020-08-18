@@ -6,6 +6,7 @@ import Footer from "../areas/Footer";
 import Header from "../areas/Header";
 import NavBar from "../common/NavBar";
 import TextInput from "../inputs/TextInput";
+import "./AddBusPage.css";
 
 function AddBusPage({ history, ...props }) {
   const [bus, setBus] = useState({ ...props.bus });
@@ -25,11 +26,9 @@ function AddBusPage({ history, ...props }) {
 
   function handleSave(event) {
     event.preventDefault();
-    props.saveBus(bus);
-    //.
-    //then(() => {
-    //    history.push("/bus")
-    //})
+    props.saveBus(bus).then(() => {
+      history.push("/home");
+    });
   }
 
   return (
@@ -57,7 +56,11 @@ function AddBusPage({ history, ...props }) {
           />
         </div>
         <div>
-          <button type="submit" className="btn btn-success btn-lg">
+          <button
+            type="submit"
+            id="addbusButton"
+            className="btn btn-success btn-lg"
+          >
             Save
           </button>
         </div>

@@ -35,15 +35,9 @@ function UpdateRoute({ history, ...props }) {
 
   function handleSave(event) {
     event.preventDefault();
-    props.updateRoute(id, route);
-    debugger;
-    console.log(route.arrivalLocation);
-    console.log(route.departureLocation);
-    console.log(route.distance);
-    /*.
-        then(() => {
-            history.push("/routes")
-        });*/
+    props.updateRoute(id, route).then(() => {
+      history.push("/home");
+    });
   }
 
   return (

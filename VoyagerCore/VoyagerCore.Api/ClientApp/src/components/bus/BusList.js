@@ -1,12 +1,10 @@
 ﻿import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 const BusList = ({ buses, onDeleteClick }) => (
-  <table id="routeexpeditionsmargin" className="table">
-    <thead className="thead-dark">
+  <table className="table">
+    <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Make</th>
         <th scope="col">Plate</th>
         <th scope="col">Update Transaction</th>
@@ -17,15 +15,12 @@ const BusList = ({ buses, onDeleteClick }) => (
       {buses.map((bus) => {
         return (
           <tr key={bus.id}>
-            <td>{bus.id}</td>
             <td>{bus.make}</td>
             <td>{bus.plate}</td>
             <td>
-              <Link to={`/updatebus/${bus.id}`}>
-                <button type="button" className="btn btn-outline-info">
-                  Change
-                </button>
-              </Link>
+              <button type="button" className="btn btn-outline-info">
+                Change
+              </button>
             </td>
             <td>
               <button

@@ -29,7 +29,7 @@ function UpdateBusPage({ history, ...props }) {
   function handleSave(event) {
     event.preventDefault();
     props.updateBus(id, bus).then(() => {
-      history.push("/bus");
+      history.push("/home");
     });
   }
 

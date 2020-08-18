@@ -20,7 +20,7 @@ function ManageExpeditionPage({ history, ...props }) {
   function handleSave(event) {
     event.preventDefault();
     props.saveNewExpedition(expedition).then(() => {
-      history.push("/expeditions");
+      history.push("/home");
     });
   }
 
