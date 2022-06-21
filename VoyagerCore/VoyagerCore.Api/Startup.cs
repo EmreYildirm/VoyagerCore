@@ -50,9 +50,11 @@ namespace VoyagerCore.Api
             services.AddScoped<ISoldTicketRepository, SoldTicketRepository>();
 
             services.AddScoped<VoyagerContext, VoyagerContext>();
+
             #region DbContext
             services.AddDbContext<VoyagerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             #endregion
+
             services.AddMvc();
 
             services.AddControllersWithViews();
